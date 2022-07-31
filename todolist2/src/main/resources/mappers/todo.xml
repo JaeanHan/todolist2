@@ -24,36 +24,53 @@
             tm.importance_flag,
 
             tt.total_count,
+            tc.incomplete_count,
 
             tm.create_date,
             tm.update_date
         from
             todo_mst tm
+            LEFT OUTER JOIN
+                (SELECT COUNT(*) AS total_count FROM todo_mst where
+                    <choose>
+                        <when test='type.equals("importance")'>
+                            importance_flag = 1
+                        </when>
+                        <when test='type.equals("complete")'>
+                            todo_complete = 1
+                        </when>
+                        <when test='type.equals("incomplete")'>
+                            todo_complete = 0
+                        </when>
+                        <otherwise>
+                            1 = 1
+                        </otherwise>
+                    </choose>
+                ) AS tt ON (1 = 1)
                 LEFT OUTER JOIN
-                (SELECT COUNT(*) AS total_count FROM todo_mst) AS tt ON (1=1)
-        order by
-            todo_code desc
-        limit
-            #{index}, #{count}
-    </select>
-    <select id="getImportanceTodoListOfIndex" parameterType="hashmap" resultType="com.jaean.todolist2.domain.todo.entity.Todo">
-        select
-            tm.todo_code,
-
-            tm.todo_content,
-            tm.todo_complete,
-            tm.importance_flag,
-
-            tt.total_count,
-
-            tm.create_date,
-            tm.update_date
-        from
-            todo_mst as tm
-            left outer join
-                (select count(*) as total_count from todo_mst where importance_flag = #{importance}) as tt on(1=1)
+                (SELECT
+                     COUNT(todo_complete) AS incomplete_count
+                 FROM todo_mst
+                 WHERE todo_complete = 0
+                 <if test='type.equals("importance")'>
+                     and importance_flag = 1
+                 </if>
+                 ) tc ON(1=1)
         where
-            tm.importance_flag = #{importance}
+            <choose>
+                <when test='type.equals("importance")'>
+                    importance_flag = 1
+                </when>
+                <when test='type.equals("complete")'>
+                    todo_complete = 1
+                </when>
+                <when test='type.equals("incomplete")'>
+                    todo_complete = 0
+                </when>
+                <otherwise>
+                    1 = 1
+                </otherwise>
+            </choose>
         order by
             todo_code desc
         limit

@@ -13,6 +13,7 @@ public class TodoListRespDto {
     private boolean todoComplete;
     private int importance;
     private int totalCount;
+    private int incompleteCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

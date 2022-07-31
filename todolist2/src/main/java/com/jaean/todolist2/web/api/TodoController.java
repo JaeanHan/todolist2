@@ -3,7 +3,6 @@ package com.jaean.todolist2.web.api;
 import com.jaean.todolist2.service.todo.TodoService;
 import com.jaean.todolist2.web.dto.CMRespDto;
 import com.jaean.todolist2.web.dto.todo.CreateTodoReqDto;
-import com.jaean.todolist2.web.dto.todo.SelectTodoListReqDto;
 import com.jaean.todolist2.web.dto.todo.TodoListRespDto;
 import com.jaean.todolist2.web.dto.todo.UpdateTodoReqDto;
 import lombok.RequiredArgsConstructor;
@@ -18,28 +17,16 @@ import java.util.List;
 public class TodoController {
     private final TodoService todoService;
 
-    @GetMapping("list")
-    public ResponseEntity<?> getTodoList(@RequestParam int page, @RequestParam int contentCount) {
+    @GetMapping("list/{type}")
+    public ResponseEntity<?> getTodoList(@PathVariable String type, @RequestParam int page, @RequestParam int contentCount) {
         List<TodoListRespDto> list = null;
         try {
-            list = todoService.getTodoList(page, contentCount);
+            list = todoService.getTodoList(type, page, contentCount);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.internalServerError().body(new CMRespDto<>(-1, page + " page list load fail", list));
+            return ResponseEntity.internalServerError().body(new CMRespDto<>(-1, page + " page list load fail", null));
         }
         return ResponseEntity.ok().body(new CMRespDto<>(1, page + " page list load success", list));
-    }
-
-    @GetMapping("list/importance")
-    public ResponseEntity<?> getTodoListByImportance(SelectTodoListReqDto selectTodoListReqDto) {
-        List<TodoListRespDto> list = null;
-        try {
-            list = todoService.getImportanceTodoList(selectTodoListReqDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(new CMRespDto<>(-1, selectTodoListReqDto.getPage() + " page list load fail", null));
-        }
-        return ResponseEntity.ok().body(new CMRespDto<>(1, selectTodoListReqDto.getPage() + "page load success", list));
     }
 
     @PostMapping("todo")

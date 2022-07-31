@@ -12,8 +12,6 @@ public interface TodoRepository {
 
     public List<Todo> getTodoListOfIndex(Map<String, Object> map) throws Exception;
 
-    public List<Todo> getImportanceTodoListOfIndex(Map<String, Object> map) throws Exception;
-
     public int updateTodoComplete(int todo_code) throws Exception;
     public int updateTodoImportance(int todo_code) throws Exception;
     public int updateTodoByTodoCode(Todo todo) throws Exception;

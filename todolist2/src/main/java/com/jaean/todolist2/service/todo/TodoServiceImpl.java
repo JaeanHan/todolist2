@@ -3,7 +3,6 @@ package com.jaean.todolist2.service.todo;
 import com.jaean.todolist2.domain.todo.entity.Todo;
 import com.jaean.todolist2.domain.todo.repository.TodoRepository;
 import com.jaean.todolist2.web.dto.todo.CreateTodoReqDto;
-import com.jaean.todolist2.web.dto.todo.SelectTodoListReqDto;
 import com.jaean.todolist2.web.dto.todo.TodoListRespDto;
 import com.jaean.todolist2.web.dto.todo.UpdateTodoReqDto;
 import lombok.RequiredArgsConstructor;
@@ -38,23 +37,8 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public List<TodoListRespDto> getTodoList(int page, int contentCount) throws Exception {
-        return createTodoListRespDtos(createGetTodoListMap(page, contentCount));
-    }
-
-    @Override
-    public List<TodoListRespDto> getImportanceTodoList(SelectTodoListReqDto selectTodoListReqDto) throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        int count = selectTodoListReqDto.getContentCount();
-
-        map.put("index", (selectTodoListReqDto.getPage() - 1) * count);
-        map.put("count", count);
-        map.put("importance", selectTodoListReqDto.getImportance());
-
-        List<TodoListRespDto> todoListRespDtos = new ArrayList<>();
-        todoRepository.getImportanceTodoListOfIndex(map).forEach(todo -> todoListRespDtos.add(todo.toListDto()));
-
-        return todoListRespDtos;
+    public List<TodoListRespDto> getTodoList(String type, int page, int contentCount) throws Exception {
+        return createTodoListRespDtos(createGetTodoListMap(type, page, contentCount));
     }
 
     @Override
@@ -77,8 +61,9 @@ public class TodoServiceImpl implements TodoService{
         return todoRepository.remove(todoCode) > 0;
     }
 
-    private Map<String, Object> createGetTodoListMap(int page, int contentCount) {
+    private Map<String, Object> createGetTodoListMap(String type, int page, int contentCount) {
         Map<String, Object> map = new HashMap<>();
+        map.put("type", type);
         map.put("index", (page - 1) * contentCount);
         map.put("count", contentCount);
         return map;
