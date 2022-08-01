@@ -1,4 +1,4 @@
-package com.jaean.todolist2.web.api;
+package com.jaean.todolist2.web.controller.api;
 
 import com.jaean.todolist2.service.todo.TodoService;
 import com.jaean.todolist2.web.dto.CMRespDto;
