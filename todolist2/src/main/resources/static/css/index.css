@@ -111,7 +111,7 @@ main {
   display: flex;
   align-items: center;
 
-  padding: 0px 10px;
+  padding: 0 10px;
 
   width: 100%;
   height: 30px;
@@ -128,7 +128,7 @@ main {
 }
 
 .incomplete-count-text {
-  margin: 20px 0px 40px;
+  margin: 20px 0 40px;
 }
 
 .incomplete-count-number {
@@ -152,6 +152,7 @@ main {
 
 .complete-check:checked + label {
   background-color: #dbdbdb40;
+  text-decoration: line-through;
 }
 
 .complete-check:checked + label::after {
@@ -166,11 +167,14 @@ main {
   position: absolute;
 }
 
+.complete-check:checked ~ .todo-content-text {
+  /*optional js*/
+  text-decoration: line-through;
+}
+
 .todo-content {
   display: flex;
   align-items: center;
-
-  margin-bottom: 10px;
 
   border-bottom: 1px solid #dbdbdb;
 
@@ -178,6 +182,10 @@ main {
   height: 30px;
 
   position: relative;
+}
+
+.todo-content:not(:last-of-type) {
+  margin-bottom: 10px;
 }
 
 .todo-content-text {
@@ -210,9 +218,12 @@ main {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #44afff;
+  /*background-color: #44afff;*/
+  background-color: #dbdbdb70;
+  color: white;
   position: absolute;
   right: 28px;
+  cursor: pointer;
 }
 
 .importance-check + label::after {
@@ -221,7 +232,8 @@ main {
   align-items: center;
   content: "★";
   font-size: 14px;
-  color: white;
+  /*color: white;*/
+  color: #5b5b5b;
   width: 18px;
   height: 18px;
   position: absolute;
@@ -229,8 +241,10 @@ main {
 }
 
 .importance-check:checked + label {
-  background-color: #dbdbdb70;
+  /*background-color: #dbdbdb70;*/
+  background-color: #44afff;
 }
+
 
 .importance-check:checked + label::after {
   display: flex;
@@ -239,7 +253,8 @@ main {
   /* text-align: center; */
   content: "★";
   font-size: 14px;
-  color: #5b5b5b;
+  /*color: #5b5b5b;*/
+  color: white;
   width: 18px;
   height: 18px;
   position: absolute;
