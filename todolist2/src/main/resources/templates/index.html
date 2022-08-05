@@ -39,12 +39,30 @@
           </div>
         </section>
         <section class="section-body">
-          <ul class="todo-content-list">
-
-          </ul>
+          <ul class="todo-content-list"></ul>
           <div class="todo-add-button"><i class="fa-solid fa-plus"></i></div>
         </section>
       </main>
+    </div>
+    <div class="modal-container modal-visible">
+      <div class="modal-add-todo">
+        <div class="modal-header">
+          <span>Todo 추가</span>
+          <button type="button" class="modal-close-button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-items">
+          <input type="text" class="modal-todo-input" />
+          <input
+            type="checkbox"
+            id="importance-check"
+            class="importance-check"
+          />
+          <label for="importance-check"></label>
+        </div>
+        <button type="button" class="modal-commit-button">확인</button>
+      </div>
     </div>
     <script
       src="https://kit.fontawesome.com/3e27d22283.js"

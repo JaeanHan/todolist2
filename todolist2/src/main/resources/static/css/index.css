@@ -245,7 +245,6 @@ main {
   background-color: #44afff;
 }
 
-
 .importance-check:checked + label::after {
   display: flex;
   justify-content: center;
@@ -332,4 +331,105 @@ main {
 .todo-add-button i {
   font-size: 22px;
   color: #5b5b5b;
+}
+
+/* modal */
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000065;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.modal-visible {
+  display: none;
+}
+
+.modal-add-todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  background-color: white;
+  width: 380px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 0;
+  box-sizing: border-box;
+  /* border-top: 10px solid #ff3333; */
+  width: 100%;
+  height: 40px;
+  padding: 10px 10px 0 20px;
+}
+
+.modal-close-button {
+  border: 1px solid #dbdbdb;
+  background-color: white;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.modal-close-button:active {
+  background-color: #dbdbdb40;
+}
+
+.todo-add-button i {
+  font-size: 22px;
+  color: #5b5b5b;
+}
+
+.modal-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.modal-items .importance-check + label {
+  left: 20px;
+}
+
+.modal-todo-input {
+  border: 0;
+  border-bottom: 1px solid #dbdbdb;
+  outline: none;
+  width: 340px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 30px;
+}
+
+.modal-commit-button {
+  border: 0;
+  border-top: 1px solid #dbdbdb;
+  background-color: white;
+  height: 80px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.modal-commit-button:active {
+  background-color: #dbdbdb40;
 }
