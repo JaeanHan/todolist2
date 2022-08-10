@@ -13,6 +13,7 @@ let totalPage = 0;
 let page = 1;
 const contentCount = 20;
 let listType = "all";
+const KEYCODE_ENTER = 13;
 
 load();
 
@@ -185,7 +186,7 @@ function addContentInputEvent(todoContent, todoCode) {
   };
 
   todoContentInput.onkeyup = (e) => {
-    if (todoContentInput.value && e.keyCode === 13) {
+    if (todoContentInput.value && e.keyCode === KEYCODE_ENTER) {
       eventFlag = false;
       updateTodo();
       todoContentInput.blur();
@@ -274,7 +275,7 @@ function setModalEvent() {
   };
 
   modalTodoInput.onkeyup = (e) => {
-    if(e.keyCode === 13) {
+    if(e.keyCode === KEYCODE_ENTER) {
       console.log('hi')
       modalCommitButton.click();
     }
@@ -337,8 +338,8 @@ function updateStatus(type, todoCode) {
 
   $.ajax({
     type: "put",
-    url: `/api/v1/todolist/todo/${type}/${todoCode}`,
     async: false,
+    url: `/api/v1/todolist/todo/${type}/${todoCode}`,
     dataType: "json",
     success: (response) => {
       result = response.data;
